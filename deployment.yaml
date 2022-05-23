@@ -28,7 +28,7 @@ spec:
     app: goviolin
   ports:
     - protocol: TCP
-      port: 8080
+      port: 8082
       targetPort: 8080
       nodePort: 32000
   type: LoadBalancer
