@@ -8,6 +8,7 @@ pipeline
         K8S_DEPLOYMENT_FILE = 'deployment.yaml'
         K8S_DEPLOYMENT_PRE_FILE = 'pre-deployment.yaml'
         K8S_SERVICE = 'goviolin-service'
+        URL = ''
         TG_CHAT_ID = credentials('telegram_chat_id')
         TG_BOT_TOCKEN = "telegram_bot_tocken"
     }
