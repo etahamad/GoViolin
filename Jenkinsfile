@@ -2,6 +2,8 @@ pipeline{
     environment{
         IMAGE = 'etahamad/goviolin'
         DOCKERHUB_CREDS = credentials('dockerhub')
+        DOCKERHUB_USERNAME = DOCKERHUB_CREDS.username
+        DOCKERHUB_PASSWORD = DOCKERHUB_CREDS.password
         DOCKER_IMAGE = ''
         
         K8S_DEPLOYMENT_FILE = 'deployment.yaml'
@@ -40,6 +42,7 @@ pipeline{
             steps{
                 script{
                     try{
+                        sh 'docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}'
                         sh "docker push ${IMAGE}:latest"
                         curl -s -X POST "https://api.telegram.org/bot$token/sendMessage" \
                              -d chat_id="$chat_id" \
@@ -72,6 +75,7 @@ pipeline{
     }
     post{
         always{
+            sh 'docker logout'
             echo 'Finished.'
         }
     }
